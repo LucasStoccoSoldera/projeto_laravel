@@ -4,30 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Cliente;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pedido extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $table = 'pedido';
+    public $table = 'pedido';
 
-     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $fillable = [
         'id_cliente',
     ];
 
-    protected $timestamps = false;
-
+    public $timestamps = false;
 
     /**
      * Get all of the comments for the Pedido
@@ -37,5 +27,15 @@ class Pedido extends Model
     public function cliente(): HasMany
     {
         return $this->hasMany(Cliente::class, 'id', 'id_cliente');
+    }
+
+    /**
+     * Get the user that owns the Pedido
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function pedidoproduto(): BelongsTo
+    {
+        return $this->belongsTo(PedidoProduto::class, 'id_pedido', 'id');
     }
 }

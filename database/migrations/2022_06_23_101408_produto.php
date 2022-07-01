@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pedido', function (Blueprint $table) {
+        Schema::create('produto', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_cliente');
-        });
-
-        Schema::table('pedido', function (Blueprint $table) {
-            $table->foreign('id_cliente')->references('id')->on('cliente');
+            $table->string('nome', 100);
+            $table->float('preco', 9, 2);
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pedido');
+        Schema::dropIfExists('produto');
     }
 };

@@ -4,30 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Cliente extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $table = 'cliente';
+    public $table = 'cliente';
 
-     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $fillable = [
         'nome',
-        'data_nascimento',
         'telefone',
     ];
 
-    protected $timestamps = false;
+    protected $dates = [
+        'data_nascimento',
+    ];
+
+    public $timestamps = false;
 
     /**
      * Get the user that owns the Cliente
@@ -38,5 +32,4 @@ class Cliente extends Model
     {
         return $this->belongsTo(Pedido::class, 'id_cliente', 'id');
     }
-
 }

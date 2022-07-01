@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cliente', function (Blueprint $table) {
+        Schema::create('pedido', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 100);
-            $table->date('data_nascimento');
-            $table->string('telefone');
+            $table->unsignedBigInteger('id_cliente');
+        });
+
+        Schema::table('pedido', function (Blueprint $table) {
+            $table->foreign('id_cliente')->references('id')->on('cliente')->cascadeOnUpdate();
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cliente');
+        Schema::dropIfExists('pedido');
     }
 };
